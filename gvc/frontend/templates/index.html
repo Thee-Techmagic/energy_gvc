@@ -13,22 +13,33 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Submit Meter Reading</h5>
-                <form>
+                <form action="{% url 'core:submit_reading' %}" method="POST">
+                  {% csrf_token %}
                   <div class="form-group">
                     <label for="submissionDate">Submission Date</label>
-                    <input type="date"  class="form-control" id="submissionDate">
+                    {{ reading_form.submission_date }}
+                    {{ reading_form.submission_date.errors }}
+                    <small class="text-info">{{ reading_form.submission_date.help_text }}</small>
+                    
+
                   </div>
                   <div class="form-group">
                     <label for="electricityDay">Electricity Meter Reading (Day)</label>
-                    <input type="number" class="form-control" id="electricityDay" placeholder="Enter electricity meter reading (day)">
+                    {{ reading_form.electricity_day }}
+                    {{ reading_form.electricity_day.errors }}
+                    <small class="text-info">{{ reading_form.electricity_day.help_text }}</small>
                   </div>
                   <div class="form-group">
                     <label for="electricityNight">Electricity Meter Reading (Night)</label>
-                    <input type="number" class="form-control" id="electricityNight" placeholder="Enter electricity meter reading (night)">
+                    {{ reading_form.electricity_night }}
+                    {{ reading_form.electricity_night.errors }}
+                    <small class="text-info">{{ reading_form.electricity_night.help_text }}</small>
                   </div>
                   <div class="form-group">
                     <label for="gas">Gas Meter Reading</label>
-                    <input type="number" class="form-control" id="gas" placeholder="Enter gas meter reading">
+                    {{ reading_form.gas }}
+                    {{ reading_form.gas.errors }}
+                    <small class="text-info">{{ reading_form.gas.help_text }}</small>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -49,15 +60,27 @@
                     <tr>
                         <th scope="col">Bill Date</th>
                         <th scope="col">Bill Amount</th>
-                        <th scope="col">Energy Credit</th>
+                        <th scope="col">Settled</th>
                     </tr>
                     </thead>
                     <tbody>
+                    {% for bill in bills %}
                     <tr>
-                        <td>01/01/2023</td>
-                        <td>£100.00</td>
-                        <td>£100.00</td>
+                       
+                        <td>{{ bill.bill_date | date:"d/m/Y" }}</td>
+                        <td>£{{ bill.amount }}</td>
+                        
+                        {% if bill.paid %}
+                          <td>Paid</td>
+                        {% else %}
+                          <td>Not Paid</td>
+                          
+                        {% endif %}
+                          
+                       
+                        
                     </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
                 <a href="#" class="btn btn-primary">Pay</a>

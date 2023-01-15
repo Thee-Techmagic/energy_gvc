@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path,include
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('Dashboard.urls',namespace='Dashboard')),
+    path('accounts/',include('accounts.urls',namespace='accounts')),
+    path('',include('core.urls',namespace='core')),
 ]
