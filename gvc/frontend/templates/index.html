@@ -1,0 +1,85 @@
+
+{% extends 'base.html'   %}
+
+
+{% block content %}
+      <div class="row align-items-center"></div>
+      <div class="col"><h1 class="text-center text-white p-3 mb-2 bg-primary">Welcome To Your <i class="fa-solid fa-bolt"></i>iGSE Dashboard!</h1></div>
+      
+<div class="container"> 
+    <div class="row">
+        <div class="col">
+            <!-- <div class="col-sm-12 col-md-6"> -->
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Submit Meter Reading</h5>
+                <form>
+                  <div class="form-group">
+                    <label for="submissionDate">Submission Date</label>
+                    <input type="date"  class="form-control" id="submissionDate">
+                  </div>
+                  <div class="form-group">
+                    <label for="electricityDay">Electricity Meter Reading (Day)</label>
+                    <input type="number" class="form-control" id="electricityDay" placeholder="Enter electricity meter reading (day)">
+                  </div>
+                  <div class="form-group">
+                    <label for="electricityNight">Electricity Meter Reading (Night)</label>
+                    <input type="number" class="form-control" id="electricityNight" placeholder="Enter electricity meter reading (night)">
+                  </div>
+                  <div class="form-group">
+                    <label for="gas">Gas Meter Reading</label>
+                    <input type="number" class="form-control" id="gas" placeholder="Enter gas meter reading">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        
+        <div class="col">
+        <div class="col">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Your Usage</h5>
+                <!-- Adding Bill here -->
+                <h2>Latest Bill</h2>
+                <p class="card-text">View and pay your latest energy bill using your energy credit.</p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Bill Date</th>
+                        <th scope="col">Bill Amount</th>
+                        <th scope="col">Energy Credit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>01/01/2023</td>
+                        <td>£100.00</td>
+                        <td>£100.00</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a href="#" class="btn btn-primary">Pay</a>
+            </div>
+        <div class="container">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Credit</h5>
+                <h4 class="badge bg-secondary">Your Available Credit:<span class="badge bg-success">400 EUR</span></h4>
+                <p class="card-text">Top up your energy credit using a valid Energy Voucher Code (EVC).</p>
+                
+                <div class="mb-3"  > <input type="text" class="form-control" placeholder="Enter your EVC"></div>
+                <a href="#" class="btn btn-primary">Top Up</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+        <div>
+
+</div>
+        </div>
+
+  {%  endblock content %}

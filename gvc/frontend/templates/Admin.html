@@ -1,0 +1,73 @@
+{%  extends 'base.html' %}
+    <div class="container">
+      <h1 class="text-center">Welcome to the <i class="fa-solid fa-bolt"></i>iGSE Admin Dashboard</h1>
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Set Prices</h5>
+        <form>
+        <div class="form-group">
+            <label for="electricityDayPrice">Electricity (Day) Price</label>
+            <input type="number" class="form-control" id="electricityDayPrice" value="0.15">
+        </div>
+        <div class="form-group">
+            <label for="electricityNightPrice">Electricity (Night) Price</label>
+            <input type="number" class="form-control" id="electricityNightPrice" value="0.10">
+        </div>
+        <div class="form-group">
+            <label for="gasPrice">Gas Price</label>
+            <input type="number" class="form-control" id="gasPrice" value="0.12">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+    </div>
+    </div>
+    <div class="col-sm-12 col-md-8">
+    <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">View Meter Readings</h5>
+        <table class="table">
+        <thead>
+            <tr>
+            <th>Customer ID</th>
+            <th>Submission Date</th>
+            <th>Electricity (Day)</th>
+            <th>Electricity (Night)</th>
+            <th>Gas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>customer1@email.com</td>
+            <td>2022-11-05</td>
+            <td>100</td>
+            <td>250</td>
+            <td>800</td>
+            </tr>
+            <tr>
+            <td>customer2@email.com</td>
+            <td>2022-11-07</td>
+            <td>120</td>
+            <td>280</td>
+            <td>850</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+    <div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">View Energy Statistics</h5>
+        <p><i class="fa-solid fa-bolt"></i>Average electricity (day) consumption: 110 kWh</p>
+        <p><i class="fa-solid fa-bolt"></i>Average electricity (night) consumption: 265 kWh</p>
+        <p><i class="fa-solid fa-bolt"></i>Average gas consumption: 825 kWh</p>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}
