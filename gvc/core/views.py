@@ -1,13 +1,14 @@
 #import render 
+from audioop import avg
 from django.shortcuts import render, redirect
 # login required decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import MeterReadingForm, EnergyVoucherForm
-from .models import MeterReading, EnergyVoucher, Bill
+from .models import  EnergyVoucher, Bill, MeterReading
 #impor messages
 from django.contrib import messages
-
+from django.db.models import Avg
 # Create your views here.
 
 @login_required
@@ -15,23 +16,20 @@ def index(request):
     reading_form = MeterReadingForm()
     voucher_form = EnergyVoucherForm()
     bills = Bill.objects.filter(customer=request.user).order_by('-bill_date')
-
+   #calculate the avarage elecrticity in a day using the meter reading
+    meter_read=MeterReading.objects.all().values('electricity_day')
+    avarage_day=MeterReading.objects.aggregate(Avg(meter_read))
     context = {
         'reading_form': reading_form,
         'voucher_form': voucher_form,
         'bills': bills,
+        'avarage_day':avarage_day
+        
+         
+        
     }
     return render(request, 'index.html', context)
 
-def Admin_login(request):
-    return render(request, 'Admin_login.html')
-
-@login_required
-def Admin_dashboard(request):
-    return render(request, 'dashboard.html')
-
-def Registration(request):
-    return render(request, 'Registration.html')
 
 def submit_reading(request):
     if request.method == 'POST':
@@ -56,3 +54,9 @@ def redeem_voucher(request):
                 voucher.customer = request.user
                 voucher.save()
                 request.user
+# def Energy_statistics(request):
+    
+    
+    
+    
+ 

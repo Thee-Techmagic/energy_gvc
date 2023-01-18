@@ -1,10 +1,10 @@
 from django.db import models
 from accounts.models import User
+from django import forms
 from django.utils.text import slugify
 import datetime
 # use decimal.Decimal for accurate calculations
 import decimal
-
 # Create your models here.
 
 class PropertyType(models.Model):
@@ -35,17 +35,22 @@ class Customer(models.Model):
         return self.user.username
 
     def save(self, *args, **kwargs):
-        # check voucher code validity
+        #check the vality
         if self.voucher_code:
             try:
                 voucher = EnergyVoucher.objects.get(code=self.voucher_code)
                 if voucher.redeemed:
-                    raise ValueError('Voucher code has already been redeemed')
+                    raise forms.ValidationError("Voucher is already redeemed.")
+
                 else:
                     voucher.redeemed = True
                     voucher.save()
             except EnergyVoucher.DoesNotExist:
-                raise ValueError('Voucher code is invalid')
+                #show error message
+                raise forms.ValidationError("Voucher code does not exist.")
+
+            
+
         super(Customer, self).save(*args, **kwargs)
 
     class Meta:
@@ -92,6 +97,7 @@ class MeterReading(models.Model):
 
 
 
+
 class Bill(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     bill_date = models.DateField()
@@ -105,6 +111,8 @@ class Bill(models.Model):
         ordering = ['-bill_date']
         verbose_name_plural = 'bills'
         db_table = 'bill'
+        
+        
 
 class Payment(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -113,6 +121,8 @@ class Payment(models.Model):
 
     def str(self):
         return self.customer.username
+    #Customer can view the bill and make payments
+     
 
     class Meta:
         ordering = ['-payment_date']
@@ -121,7 +131,7 @@ class Payment(models.Model):
 
 class EnergyVoucher(models.Model):
     code = models.CharField(max_length=8, unique=True)
-    value = models.DecimalField(max_digits=10, decimal_places=2)
+    value = models.DecimalField(default=200, max_digits=10, decimal_places=2)
     redeemed = models.BooleanField(default=False)
 
 
@@ -132,7 +142,6 @@ class EnergyVoucher(models.Model):
         ordering = ['code']
         verbose_name_plural = 'energy vouchers'
         db_table = 'energy_voucher'
-
 
 
 

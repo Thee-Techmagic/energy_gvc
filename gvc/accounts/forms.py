@@ -44,13 +44,29 @@ class CustomerForm(forms.Form):
                     voucher.redeemed = True
                     voucher.save()
         except:
-            pass
+             raise forms.ValidationError("Voucher code does not exist.")
+         
 
 
 
 
 
 class LoginForm(forms.Form):
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email', 'class': 'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'form-control'}))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+
+        user = authenticate(email=email, password=password)
+        if user is None:
+            raise forms.ValidationError('Invalid email or password')
+
+
+#create adminLoginForm
+class AdminForm(forms.Form):
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email', 'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'form-control'}))
 

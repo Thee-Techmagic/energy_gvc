@@ -1,0 +1,16 @@
+{%  extends 'base.html' %}
+
+
+{%  block content %}
+
+{%  include 'includes/bill.html' %}
+<h1>Make Payment</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="amount">Amount:</label>
+    <input type="text" name="amount" id="amount" required>
+    <input type="submit" value="Make Payment">
+</form>
+
+
+{%  endblock %}
